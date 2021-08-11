@@ -18,7 +18,7 @@ class FABBottomAppBar extends StatefulWidget {
     this.notchedShape,
      this.onTabSelected,
   }) {
-    assert(this.items.length == 2 || this.items.length == 4);
+    // assert(this.items.length == 2 || this.items.length == 4);
   }
   final List<FABBottomAppBarItem> items;
   final String centerItemText;
@@ -35,6 +35,8 @@ class FABBottomAppBar extends StatefulWidget {
 
 class FABBottomAppBarState extends State<FABBottomAppBar> {
   int _selectedIndex = 0;
+
+
 
   _updateIndex(int index) {
     widget.onTabSelected(index);
