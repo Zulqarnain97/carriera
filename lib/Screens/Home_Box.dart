@@ -4,14 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
-import 'package:carriera/Models/JobsModel.dart';
+import 'package:carriera/Models/Jobs_Model.dart';
 
 import '../constants.dart';
-
+import 'package:carriera/Screens/All_Blogs_Screen.dart';
+import 'package:carriera/Screens/All_Jobs_Screen.dart';
 import 'Jobs_Detail.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-
+import 'package:carriera/Screens/Blog_Details_Screen.dart';
+import 'package:carriera/Models/Blogs_Model.dart';
 
 class HomeBox extends StatefulWidget {
   @override
@@ -20,11 +21,12 @@ class HomeBox extends StatefulWidget {
 
 class _HomeBoxState extends State<HomeBox> {
 
-
+  BlogsItem _blogsItem;
 
 
 
    JobModel jobItem;
+
    final List<String> imgList = [
      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8am9ic3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
      'https://images.unsplash.com/photo-1476231790875-016a80c274f3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8am9ic3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
@@ -73,7 +75,14 @@ class _HomeBoxState extends State<HomeBox> {
                   )).toList(),
                 ),
               ),
-              CategoryTitleContainer(Colors.transparent, 'Latest Jobs', 15.0.sp, 0.0.sp),
+              CategoryTitleContainer(Colors.transparent, 'Latest Jobs', 15.0.sp, 0.0.sp, (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllJobsScreen(),
+                    )
+                );
+              }),
               Container(
                 color: Colors.transparent,
                 height: 27.0.h,
@@ -216,7 +225,14 @@ class _HomeBoxState extends State<HomeBox> {
 
                 ),
               ),
-              CategoryTitleContainer(Colors.white, 'Popular Blog', 0.0.sp, 15.0.sp),
+              CategoryTitleContainer(Colors.white, 'Popular Blog', 0.0.sp, 15.0.sp, (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllBlogsScreen(),
+                    )
+                );
+              }),
               Container(
 
                 height: 30.0.h,
@@ -240,7 +256,15 @@ class _HomeBoxState extends State<HomeBox> {
                             var blogImage = 'https://hospitality92.com/uploads/products/${snapshot.data[index]['image']}';
 
                             return InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                _blogsItem = BlogsItem.fromDocument(snapshot, index);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BlogDetailScreen(_blogsItem),
+                                    )
+                                );
+                              },
                               child: Container(
                                 margin: EdgeInsets.symmetric(vertical: kDefaultPadding.sp/3, horizontal: kDefaultPadding.sp),
                                 child: Stack(children: [
@@ -355,7 +379,7 @@ class _HomeBoxState extends State<HomeBox> {
     );
   }
 
-  Widget CategoryTitleContainer(Color color, String title, double containerMargin, double rowPadding) {
+  Widget CategoryTitleContainer(Color color, String title, double containerMargin, double rowPadding, Function seeAll) {
     return Container(
       color: color,
       margin: EdgeInsets.symmetric(horizontal: containerMargin),
@@ -372,18 +396,21 @@ class _HomeBoxState extends State<HomeBox> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800, fontSize: 13.0.sp),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20.0.sp / 4),
-              width: 20.0.w,
-              child: Center(
-                child: Text(
-                  'See All',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w500, fontSize: 9.0.sp),
+            GestureDetector(
+              onTap: seeAll,
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 20.0.sp / 4),
+                width: 20.0.w,
+                child: Center(
+                  child: Text(
+                    'See All',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w500, fontSize: 9.0.sp),
+                  ),
                 ),
-              ),
 
+              ),
             ),
           ],
         ),

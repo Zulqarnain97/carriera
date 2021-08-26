@@ -51,6 +51,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
       return _buildTabItem(
         item: widget.items[index],
         index: index,
+
         onPressed: _updateIndex,
       );
     });
@@ -103,7 +104,9 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(item.iconData, color: color, size: 20.0.sp),
+                Icon(item.iconData,
+                  color: color,
+                  size: 20.0.sp, ),
                 Text(
                   item.text,
                   style: TextStyle(color: color, fontSize: 12.0.sp),

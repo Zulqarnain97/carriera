@@ -1,3 +1,4 @@
+import 'package:carriera/Screens/All_Blogs_Screen.dart';
 import 'package:carriera/Screens/Home_Screen.dart';
 import 'package:carriera/Screens/Hotel_Screen.dart';
 import 'package:carriera/Screens/More_Screen.dart';
@@ -5,6 +6,7 @@ import 'package:carriera/Screens/Tourism_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'All_Jobs_Screen.dart';
 import 'Home_Box.dart';
 import '../Widgets/FABBottomAppBarItem.dart';
 
@@ -51,8 +53,9 @@ class _DashBoardState extends State<DashBoard> {
                 iconData: Icons.home,
                 text: 'Home',
               ),
-              FABBottomAppBarItem(iconData: Icons.hearing, text: 'Tourism'),
-              FABBottomAppBarItem(iconData: Icons.king_bed, text: 'Hotel'),
+              FABBottomAppBarItem(iconData: Icons.tour, text: 'Tourism'),
+              // FABBottomAppBarItem(iconData: Icons.king_bed, text: 'Hotel'),
+              FABBottomAppBarItem(iconData: Icons.king_bed, text: 'Hotels'),
               FABBottomAppBarItem(
                   iconData: Icons.horizontal_split_sharp, text: 'More'),
             ],
@@ -69,7 +72,13 @@ class _DashBoardState extends State<DashBoard> {
             height: 40.0.sp,
             width: 40.0.sp,
             child: new FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllJobsScreen(),
+                    ));
+              },
               child: Icon(
                 Icons.work,
                 color: Colors.white,
