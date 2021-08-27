@@ -1,96 +1,118 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:carriera/Widgets/Video_Player_Box.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:carriera/Models/Videos_Model.dart';
+import 'package:carriera/Providers/Videos_Provider.dart';
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:http/http.dart' as http;
 
-
-class VideosScreen extends StatefulWidget {
+class VideosScreen extends StatelessWidget {
   @override
-  _VideosScreenState createState() => _VideosScreenState();
-}
-class _VideosScreenState extends State<VideosScreen> {
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
 
-  List<String> videosList = [];
-  var videoItem;
+        body: VideosGroup(),
 
-
-  Future<List<dynamic>> getVideosData() async {
-    String url = 'https://hospitality92.com/api/getvideos';
-    var response = await http.get(Uri.parse(url), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    });
-    return json.decode(response.body)['videos'];
-
+    );
   }
+}
 
-  initState(){
-    setState(() {
-      getVideosData();
+class VideosGroup extends StatefulWidget {
+  @override
+  _VideosGroupState createState() => _VideosGroupState();
+}
+
+class _VideosGroupState extends State<VideosGroup> {
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<VideosProvider>(context, listen: false)
+        .fetchVideos()
+        .then((value) {
+      if (value) setState(() {});
     });
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
 
-    return Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child: Container(
-                  //color: Colors.red,
-                  child:  FutureBuilder<List<dynamic>>(
-                    future: getVideosData(),
-                    builder: (context, snapshot) {
-                      print(snapshot.hasData);
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          controller: new ScrollController(keepScrollOffset: false),
-                          scrollDirection: Axis.vertical,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) {
-                            var video =  snapshot.data[index]['video'];
-                            var link = snapshot.data[index]['link'];
-
-
-                            for(int i=0 ; i<snapshot.data.length ; i++ ){
-                              if(snapshot.data[index]['video'] != null){
-                                var data = snapshot.data[index]['video'];
-                                videosList.clear();
-                                videosList.add(data);
-                                videoItem = videosList.elementAt(0);
-
-                                print("erfervrvr"+videosList.toString());
-                                print("chal raha h");
-                                print(data);
-                              }
-
-                            }
-
-                            return Padding(
-                              padding:   EdgeInsets.only(top: 4.0.sp, right: 4.0.sp),
-                              child: Container(
-                                  height: 30.0.h,
-
-                                  child: Center(child: VideoItem('https://hospitality92.com/uploads/videos/$video'))
-
-                              ),
-                            );
-                          });
-
-                    },
-                  ),
-
-                ),
-              )
-            ],
-          ),
-        )
-    );
+      Provider.of<VideosProvider>(context, listen: false)
+          .fetchVideos()
+          .then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    final wat = Provider.of<VideosProvider>(context, listen: false).t;
+
+    return Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          height: 78.0.h,
+
+          child: _isLoading
+              ? Center(
+            child: CircularProgressIndicator(),
+          )
+              : ListView.builder(
+            itemCount: wat.length,
+            padding: EdgeInsets.zero,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+              // builder: (c) => workOut[i],
+              value: wat[i],
+              child: VideoBox(),
+            ),
+          ),
+        ));
+  }
+}
+
+
+
+class VideoBox extends StatefulWidget {
+
+
+
+
+
+
+  @override
+  _VideoBoxState createState() => _VideoBoxState();
+}
+
+class _VideoBoxState extends State<VideoBox> {
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    final testData = Provider.of<VideosModel>(context, listen: false);
+
+
+    return Container(
+        height: 29.0.h,
+        width: 100.0.w,
+
+        child: VideoItem(testData.video != null ? 'https://hospitality92.com/uploads/videos/' + testData.video : 'https://hospitality92.com/uploads/products/1624530723.mp4', )
+
+    );
+  }
 }

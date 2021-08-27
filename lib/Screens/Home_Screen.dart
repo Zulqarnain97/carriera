@@ -7,6 +7,7 @@ import 'package:carriera/Screens/Videos_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../constants.dart';
+import 'package:carriera/Screens/Others_Screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 100.0.w,
               child:
               Padding(
-                padding: EdgeInsets.only(top: kDefaultPadding.sp*2-15.0.sp),
+                padding: EdgeInsets.only(top: kDefaultPadding.sp*2-15.0.sp, bottom: kDefaultPadding.sp/6),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   HomeBox(),
                   RestaurentsScreen(),
                   VideosScreen(),
-                  HotelScreen(),
+                  OthersScreen(),
 
                 ],
               ),

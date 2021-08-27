@@ -3,14 +3,27 @@ import 'package:carriera/Models/Blogs_Model.dart';
 import 'package:sizer/sizer.dart';
 import '../constants.dart';
 import 'package:intl/intl.dart';
+import 'package:carriera/Providers/Blogs_Provider.dart';
+import 'package:provider/provider.dart';
 
-class BlogDetailScreen extends StatelessWidget {
-  final BlogsItem _blogsItem;
+class BlogDetailScreen extends StatefulWidget {
+  static const routeName='/blog_details_screen';
 
-  BlogDetailScreen(this._blogsItem);
+  @override
+  _BlogDetailScreenState createState() => _BlogDetailScreenState();
+}
+
+class _BlogDetailScreenState extends State<BlogDetailScreen> {
+
 
   @override
   Widget build(BuildContext context) {
+    final blogId = ModalRoute.of(context).settings.arguments as int;
+
+    final selectedBlog =
+    Provider.of<BlogsProvider>(context, listen: false)
+        .b
+        .singleWhere((element) => element.blogID == blogId);
     return Scaffold(
 
       body: Container(
@@ -22,7 +35,7 @@ class BlogDetailScreen extends StatelessWidget {
               height: 60.0.h,
               color: Colors.white,
               child: Image.network(
-                'https://hospitality92.com/uploads/products/${_blogsItem.bloggerImage}',
+                selectedBlog.bloggerImage,
                 fit: BoxFit.fill,
                 width: double.infinity,
               ),
@@ -81,7 +94,7 @@ class BlogDetailScreen extends StatelessWidget {
                                   padding: EdgeInsets.only(top: 15.0.sp, bottom: 15.0.sp),
                                   child: Center(
                                     child: Text(
-                                      '" ${_blogsItem.bloggerQuote} " ',
+                                      '" ${selectedBlog.bloggerQuote} " ',
                                       textAlign: TextAlign.center,
                                       maxLines: 4,
                                       overflow: TextOverflow.ellipsis,
@@ -101,9 +114,9 @@ class BlogDetailScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    AuthorDate('Blog By:', _blogsItem.bloggerName),
+                                    AuthorDate('Blog By:', selectedBlog.bloggerName),
                                     SizedBox(height: 4.0.sp,),
-                                    AuthorDate('Published Date:', '2021-06-18' /*DateFormat.yMMMEd().format(_blogsItem.blogCreated_at)*/),
+                                    AuthorDate('Published Date:', selectedBlog.blogDate /*DateFormat.yMMMEd().format(_blogsItem.blogCreated_at)*/),
                                   ],
                                 ),
                               ),
@@ -115,7 +128,7 @@ class BlogDetailScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.all(kDefaultPadding.sp / 2),
                                     child: Text(
-                                      _blogsItem.bloggDescription,
+                                      selectedBlog.bloggDescription,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: kBlackColor,

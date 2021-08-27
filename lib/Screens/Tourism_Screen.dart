@@ -56,7 +56,7 @@ class _TourismScreenState extends State<TourismScreen> {
               child:
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: kDefaultPadding.sp*2-15.0.sp),
+                  padding: EdgeInsets.only(top: kDefaultPadding.sp*2-15.0.sp, bottom: kDefaultPadding.sp/6),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(

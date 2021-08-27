@@ -3,17 +3,21 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:carriera/Models/Must_Visit_Destinations.dart';
 import 'package:carriera/Models/Popular_In_Pakistan.dart';
+import 'package:carriera/Providers/Blogs_Provider.dart';
 import 'package:carriera/Widgets/Must_Visit_Destination_Card.dart';
 import 'package:carriera/Widgets/Popular_In_Pakistan_Card.dart';
 import 'package:carriera/Widgets/Video_Player_Box.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
 import 'package:carriera/Widgets/Celebrate_With_Us_Card.dart';
 import 'package:carriera/Models/Celebrate_With_Us.dart';
-
+import 'package:carriera/Widgets/Blog_Overview_Card.dart';
+import 'package:carriera/Models/Blogs_Model.dart';
 import '../constants.dart';
+import 'All_Blogs_Screen.dart';
 
 class TourismBox extends StatefulWidget {
   static const routeName = '/tourism_screen.dart';
@@ -23,14 +27,44 @@ class TourismBox extends StatefulWidget {
 }
 
 class _TourismBoxState extends State<TourismBox> {
-  final List<String> imgList = [
-    'https://images.unsplash.com/photo-1599106242383-271adeb2e828?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8aGlsbHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1541675154750-0444c7d51e8e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGhpbGxzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1519414442781-fbd745c5b497?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjV8fGhpbGxzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-  ];
+
+  int currentPos = 0;
+
+  var _isInit = true;
+  var _isLoading = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<BlogsProvider>(context, listen: false)
+        .fetchBlogs()
+        .then((value) {
+      if (value) setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      Provider.of<BlogsProvider>(context, listen: false)
+          .fetchBlogs()
+          .then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+  @override
   Widget build(BuildContext context) {
+    final b = Provider.of<BlogsProvider>(context, listen: false).b;
     return Container(
       color: Colors.white,
       height: 78.0.h,
@@ -38,26 +72,44 @@ class _TourismBoxState extends State<TourismBox> {
         child: Column(
           children: [
 
-        Padding(
-        padding:   EdgeInsets.only(top: 0.0.sp, right: 4.0.sp),
-        child: Container(
-            color: Colors.white,
+        Container(
+            color: Colors.yellow,
             height: 30.0.h,
+            width: 100.0.w,
             child: Center(child: VideoItem("https://hospitality92.com/uploads/products/1624530723.mp4"))
-        ),
+
       ),
             Container(
-              height: 25.0.h,
+
+              height: 28.0.h,
               width: 100.0.w,
-              child: CarouselSlider(
-                options: CarouselOptions(autoPlay: true),
-                items: imgList
-                    .map((item) => Container(
-                    child: Image.network(item,
-                        fit: BoxFit.cover, width: 100.0.w)))
-                    .toList(),
+
+              child:  _isLoading
+                  ? Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+              )
+                  :
+              CarouselSlider.builder(
+                itemCount: 4,
+
+                itemBuilder: (context, itemIndex, realIndex) => ChangeNotifierProvider.value(
+                      value: b[itemIndex],
+                      child: TourismBlogCard(),
+                    ),
+                  options: CarouselOptions(
+                    enlargeCenterPage: false,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        currentPos = index;
+                      });
+                    },
+                    autoPlay: true,
+                  )
               ),
+
             ),
+
             Container(
               height: 20.0.h,
 
