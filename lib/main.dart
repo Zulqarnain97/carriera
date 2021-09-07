@@ -6,6 +6,7 @@ import 'package:carriera/Screens/All_Blogs_Screen.dart';
 import 'package:carriera/Screens/Blog_Details_Screen.dart';
 
 import 'package:carriera/Screens/More_Screen.dart';
+import 'package:carriera/Screens/Videos_Screen.dart';
 
 
 import 'package:device_preview/device_preview.dart';
@@ -18,9 +19,12 @@ import 'package:carriera/Providers/Blogs_Provider.dart';
 import 'Login_Signup/Forget_Password_Screen.dart';
 
 
+import 'Screens/DashBoard.dart';
 import 'Screens/Splash_Screen.dart';
 
 import 'package:carriera/Providers/Videos_Provider.dart';
+
+
 void main() => runApp(
   DevicePreview(
     enabled: !kReleaseMode,

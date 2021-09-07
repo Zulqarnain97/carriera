@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../constants.dart';
 import 'package:carriera/Screens/Others_Screen.dart';
-
+import 'package:carriera/Screens/Hotel_Screen.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TabButton(
-                        text: "Carriera",
+                        text: "Hospitality",
                         pageNumber: 0,
                         selectedPage: _selectedPage,
                         onPressed: () {
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                       TabButton(
-                        text: "Videos",
+                        text: "Hotels",
                         pageNumber: 2,
                         selectedPage: _selectedPage,
                         onPressed: () {
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   HomeBox(),
                   RestaurentsScreen(),
-                  VideosScreen(),
+                  HotelScreen(),
                   OthersScreen(),
 
                 ],
@@ -123,44 +123,3 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class TabButton extends StatelessWidget {
-  final String text;
-  final int selectedPage;
-  final int pageNumber;
-  final Function onPressed;
-  TabButton({this.text, this.selectedPage, this.pageNumber, this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: AnimatedContainer(
-        duration: Duration(
-            milliseconds: 1000
-        ),
-        curve: Curves.fastLinearToSlowEaseIn,
-        margin: EdgeInsets.only(left: kDefaultPadding.sp/2, top: kDefaultPadding.sp/4),
-        width: 26.0.w,
-        height: 4.0.h,
-        decoration: BoxDecoration(
-          color: selectedPage == pageNumber ? kPrimaryColor : kPrimaryColor.withOpacity(0.7),
-          borderRadius: BorderRadius.circular(kBorderRadius.sp),
-        ),
-        // padding: EdgeInsets.symmetric(
-        //   vertical: selectedPage == pageNumber ? kDefaultPadding.sp/6 : 0,
-        //   horizontal: selectedPage == pageNumber ? kDefaultPadding.sp/6 : 0,
-        // ),
-
-        child: Center(
-          child: Text(
-            text ?? "Tab Button",
-            style: TextStyle(
-              fontSize: 12.0.sp,
-              color: selectedPage == pageNumber ? Colors.white : Colors.white30,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

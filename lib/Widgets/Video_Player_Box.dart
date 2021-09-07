@@ -47,7 +47,7 @@ class _VideoItemState extends State<VideoItem> {
                   return FittedBox(
                     fit: BoxFit.cover,
                     child: SizedBox(
-                      height: 29.0.h,
+                      height: 24.0.h,
                       width: 100.0.w,
                       child: VideoPlayer(_controller  ),
                     ),

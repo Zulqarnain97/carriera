@@ -419,7 +419,7 @@ class _SignUpScreenTwoState extends State<SignUpScreenTwo> {
     } else {
       loadProgress();
       Fluttertoast.showToast(msg: "User Registered Successfully!!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 2, backgroundColor: Colors.white60, textColor: Colors.black87, fontSize: 10.0.sp);
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => LoginScreen(),

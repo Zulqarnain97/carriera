@@ -1,7 +1,7 @@
 import 'package:carriera/Models/Blogs_Model.dart';
 import 'package:carriera/Widgets/Blog_Overview_Card.dart';
 import 'package:carriera/Widgets/Video_Player_Box.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+
 import 'package:carriera/Models/Videos_Model.dart';
 import 'package:carriera/Providers/Videos_Provider.dart';
 
@@ -28,7 +28,7 @@ class _AllBlogsScreenState extends State<AllBlogsScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  height: 14.0.h,
+                  height: 12.0.h,
                   color: kSecondaryColor,
                   child: Padding(
                       padding: EdgeInsets.only(

@@ -67,14 +67,14 @@ class _TourismBoxState extends State<TourismBox> {
     final b = Provider.of<BlogsProvider>(context, listen: false).b;
     return Container(
       color: Colors.white,
-      height: 78.0.h,
+      height: 88.0.h,
       child: SingleChildScrollView(
         child: Column(
           children: [
 
         Container(
             color: Colors.yellow,
-            height: 30.0.h,
+            height: 24.0.h,
             width: 100.0.w,
             child: Center(child: VideoItem("https://hospitality92.com/uploads/products/1624530723.mp4"))
 
@@ -194,7 +194,7 @@ class _TourismBoxState extends State<TourismBox> {
               ),
             ),
             Container(
-              height: 5.0.h,
+              height: kDefaultPadding.sp*4,
 
             ),
           ],

@@ -146,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   if (formkey.currentState.validate()) {
                                     print('validated');
 
-                                    Navigator.of(context).pushNamed(
+                                    Navigator.of(context).pushReplacementNamed(
                                       SignUpScreenTwo.routeName,
                                       arguments: {
                                         'fName':fullName.text, 'email': email.text, 'jobTitle':desiredJobTitle.text, 'phone':phone.text

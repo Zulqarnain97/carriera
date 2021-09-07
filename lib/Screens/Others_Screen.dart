@@ -5,7 +5,7 @@ class OthersScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: 78.0.h,
+        height: 88.0.h,
         width: 100.0.w,
         color: Colors.green,
       ),

@@ -97,7 +97,8 @@ class _HomeBoxState extends State<HomeBox> {
             children: [
 
               Container(
-                height: 28.0.h,
+
+                height: 24.0.h,
                 width: 100.0.w,
                 color: Colors.transparent,
                 child: FutureBuilder<List<dynamic>>(
@@ -107,12 +108,12 @@ class _HomeBoxState extends State<HomeBox> {
                       return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                           child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            child: Stack(
+
                               children: [
-                                /*Stack()*/
+
                                 Container(
+                                  color: Colors.transparent,
                                   height: 24.0.h,
                                   width: 100.0.w,
                                   child: CarouselSlider.builder(
@@ -143,27 +144,32 @@ class _HomeBoxState extends State<HomeBox> {
                                       )
                                   ),
                                 ),
-                                Container(
+                                Positioned(
+                                  bottom: 1.0.h,
+                                  left: 45.0.w,
 
-                                  height: 2.0.h,
+                                  child: Container(
 
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: snapshot.data.map((url) {
-                                        int index = snapshot.data.indexOf(url);
-                                        return Container(
-                                          width: 4.0.sp,
-                                          height: 4.0.sp,
-                                          margin: EdgeInsets.symmetric(horizontal: 1.0.sp),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: currentPos == index ? kPrimaryColor : Color.fromRGBO(0, 0, 0, 0.4),
-                                          ),
-                                        );
-                                      }).toList(),
+                                    height: 2.0.h,
+                                    color: Colors.transparent,
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: snapshot.data.map((url) {
+                                          int index = snapshot.data.indexOf(url);
+                                          return Container(
+                                            width: 4.0.sp,
+                                            height: 4.0.sp,
+                                            margin: EdgeInsets.symmetric(horizontal: 1.0.sp),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: currentPos == index ? kPrimaryColor : Color.fromRGBO(0, 0, 0, 0.4),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -335,7 +341,7 @@ class _HomeBoxState extends State<HomeBox> {
               }),
               Container(
 
-                height: 30.0.h,
+                height: 34.0.h,
                 color: Colors.white,
 
                 child:  _isLoading
@@ -345,7 +351,7 @@ class _HomeBoxState extends State<HomeBox> {
                 )
                     : ListView.builder(
                   itemCount: 2,
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.only(bottom: kDefaultPadding.sp),
                   scrollDirection: Axis.vertical,
                   itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
                     // builder: (c) => workOut[i],
@@ -353,7 +359,8 @@ class _HomeBoxState extends State<HomeBox> {
                     child: BlogCard(),
                   ),
                 ),
-              )
+              ),
+              //Container(height: kDefaultPadding.sp, color: Colors.white,)
             ],
           ),
         ),

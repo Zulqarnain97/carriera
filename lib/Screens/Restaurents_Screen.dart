@@ -10,7 +10,7 @@ class RestaurentsScreen extends StatelessWidget{
     return Scaffold(
       body: Container(
          color: Colors.white,
-        height: 78.0.h,
+        height: 88.0.h,
         width: 100.0.w,
         child: SingleChildScrollView(
           child: Column(
@@ -29,7 +29,7 @@ class RestaurentsScreen extends StatelessWidget{
                   'Chaar Meenar',
                    'https://images.unsplash.com/photo-1574936145840-28808d77a0b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
               ),
-              SizedBox(height: 10.0.sp,),
+              SizedBox(height: kDefaultPadding.sp*4),
             ],
           ),
         )

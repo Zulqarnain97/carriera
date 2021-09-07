@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../constants.dart';
 import 'DashBoard.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -56,8 +57,25 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               Container(
 
-                  width: 90.0.w, height: 10.0.h,
-                  child: Image.asset("assets/logo.png", width: double.infinity, )
+                  width: 90.0.w, height: 6.0.h,
+                  // child: Image.asset("assets/logo.png", width: double.infinity, )
+                child: Center(
+                  child: Text('Hospitality', style: TextStyle(
+                    color: kAppBarColor,
+                    fontSize: 22.0.sp,
+                    fontFamily: 'Otomanopee One'
+                  ) ),
+                )
+              ),
+              Container(
+
+                  width: 90.0.w, height: 6.0.h,
+                  // child: Image.asset("assets/logo.png", width: double.infinity, )
+                  child: Center(child: Text(' 92', style: TextStyle(
+                      color: kAppBarColor,
+                      fontSize: 22.0.sp,
+                      fontFamily: 'Otomanopee One'
+                  ) ))
               ),
               Spacer(
                 flex: 1,
